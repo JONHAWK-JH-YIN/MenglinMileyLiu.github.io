@@ -89,10 +89,31 @@
     onScroll(); // run once on load
   }
 
+  /* ---------- Load Shared Footer ---------- */
+  function loadFooter() {
+    var footer = document.querySelector('.site-footer');
+    if (!footer) return;
+
+    fetch('includes/footer.html')
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(function (html) {
+        footer.innerHTML = html;
+      })
+      .catch(function (error) {
+        console.error('Failed to load footer:', error);
+      });
+  }
+
   /* ---------- Init ---------- */
   document.addEventListener('DOMContentLoaded', function () {
     initReveal();
     initMobileNav();
     initHeaderScroll();
+    loadFooter();
   });
 })();
